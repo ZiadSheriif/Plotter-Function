@@ -20,8 +20,7 @@ from PySide2.QtWidgets import (
     QLineEdit,
 )
 
-from validator import validation
-fonts = QFont("Calibri", 15)
+fonts = QFont("Calibri", 12)
 ranges = (-1000, 1000)
 defRange = (-10, 10)
 
@@ -41,16 +40,18 @@ class PlotWidget(QWidget):
         self.axes = self.view.figure.subplots()
 
         # min and max values of x
-        self.min = QDoubleSpinBox()
         self.max = QDoubleSpinBox()
-        self.min.setPrefix("Min X: ")
+        self.min = QDoubleSpinBox()
         self.max.setPrefix("Max X: ")
+        self.min.setPrefix("Min X: ")
         self.min.setFont(fonts)
         self.max.setFont(fonts)
         self.min.setRange(*ranges)
         self.max.setRange(*ranges)
         self.min.setValue(defRange[0])
         self.max.setValue(defRange[1])
+
+        # TODO Minimize Layout of label box
 
         self.function = QLineEdit()
         self.function.setFont(fonts)
@@ -67,8 +68,8 @@ class PlotWidget(QWidget):
         layout1.addWidget(self.plot)
 
         layout2 = QHBoxLayout()
-        layout2.addWidget(self.min)
         layout2.addWidget(self.max)
+        layout2.addWidget(self.min)
 
         vlayout = QVBoxLayout()
         vlayout.addWidget(self.view)
@@ -88,25 +89,25 @@ class PlotWidget(QWidget):
 
     @Slot()
     def on_change(self, val):  # val is needed to identify what value is changed
-        mn = self.min.value()
-        mx = self.max.value()
+        min = self.min.value()
+        max = self.max.value()
 
         # warning: min x can't be greater than or equal to max x
-        if val == 1 and mn >= mx:
-            self.mn.setValue(mx-1)
-            self.error_dialog.setText("'Min x' should be less than 'Max x'.")
+        if val == 1 and min >= max:
+            self.mn.setValue(max-1)
+            self.error_dialog.setText("'Min x' should be less than 'Max x'")
             self.error_dialog.show()
             return
 
         # warning: max x can't be less than or equal to min x
-        if val == 2 and mx <= mn:
-            self.max.setValue(mn+1)
+        if val == 2 and max <= min:
+            self.max.setValue(min+1)
             self.error_dialog.setText(
-                "'Max x' should be greater than 'Min x'.")
+                "'Max x' should be greater than 'Min x'")
             self.error_dialog.show()
             return
 
-        x = np.linspace(mn, mx)
+        x = np.linspace(min, max)
         try:
             y = validation(self.function.text())(x)
         except ValueError as e:

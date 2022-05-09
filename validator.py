@@ -38,6 +38,6 @@ def validation(equation):
 
     # TODO : rest of validation ==> Exp Sin Cos
     def func(x):
-        return eval(x)
+        return eval(equation)
 
     return func
