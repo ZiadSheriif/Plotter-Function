@@ -42,14 +42,14 @@ class PlotWidget(QWidget):
         # min and max values of x
         self.max = QDoubleSpinBox()
         self.min = QDoubleSpinBox()
+        self.min.setValue(defRange[0])
+        self.max.setValue(defRange[1])
         self.max.setPrefix("Max X: ")
         self.min.setPrefix("Min X: ")
         self.min.setFont(fonts)
         self.max.setFont(fonts)
         self.min.setRange(*ranges)
         self.max.setRange(*ranges)
-        self.min.setValue(defRange[0])
-        self.max.setValue(defRange[1])
 
         # TODO Minimize Layout of label box
 
@@ -81,25 +81,24 @@ class PlotWidget(QWidget):
         self.error_dialog.setFont(fonts)
 
         # connect inputs with on_change method
-        self.min.valueChanged.connect(lambda _: self.on_change(1))
-        self.max.valueChanged.connect(lambda _: self.on_change(2))
-        self.plot.clicked.connect(lambda _: self.on_change(3))
-
-        self.on_change(0)
+        self.min.valueChanged.connect(lambda _: self.entryChange(1))
+        self.max.valueChanged.connect(lambda _: self.entryChange(2))
+        self.plot.clicked.connect(lambda _: self.entryChange(3))
+        self.entryChange(0)
 
     @Slot()
-    def on_change(self, val):  # val is needed to identify what value is changed
+    def entryChange(self, val):  # val is needed to identify what value is changed
         min = self.min.value()
         max = self.max.value()
 
-        # warning: min x can't be greater than or equal to max x
+        # Warning: min x can't be greater than or equal to max x
         if val == 1 and min >= max:
-            self.mn.setValue(max-1)
+            self.min.setValue(max-1)
             self.error_dialog.setText("'Min x' should be less than 'Max x'")
             self.error_dialog.show()
             return
 
-        # warning: max x can't be less than or equal to min x
+        # Warning: max x can't be less than or equal to min x
         if val == 2 and max <= min:
             self.max.setValue(min+1)
             self.error_dialog.setText(
