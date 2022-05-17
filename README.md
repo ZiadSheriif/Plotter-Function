@@ -1,10 +1,11 @@
- # Function  Plotter
+# Function  Plotter
 
 GUI program that plots arbitrary user-entered function using python
 
 ## Description
-* Take a function of x from the user, e.g., 5*x^3 + 2*x. 
-* Take min and max values of x from the user. 
+
+* Take a function of x from the user, e.g., 5*x^3 + 2*x.
+* Take min and max values of x from the user.
 * The following operators are supported: + - / * ^.
 
 ## Getting Started
@@ -37,6 +38,7 @@ pip install nympy
 ```
 python run.py
 ```
+
 ### Screenshots
 
 #### Graphs
@@ -48,13 +50,14 @@ python run.py
 ![graph5](images/Screenshot5.png)
 ![graph6](images/Screenshot6.png)
 
-
 #### Error messages
+
 ![MinX](images/Screenshot7.png)
 ![MaxX](images/Screenshot8.png)
 ![Function](images/Screenshot9.png)
 
 ### Contributors
+
 <table>
 <tr>
 <td align="center">
@@ -63,3 +66,8 @@ python run.py
 </td>
 </tr>
  </table>
+
+## License <a name="license"></a>
+
+> This software is licensed under MIT License,
+> See [License](https://github.com/ZiadSheriif/Plotter-Function/blob/master/LICENSE) for more information ©ZiadSheriif.
