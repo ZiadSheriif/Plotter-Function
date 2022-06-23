@@ -13,7 +13,7 @@ operators = [
     '-'
 ]
 
-# converstion string as input from user to mathematical function
+# conversion string as input from user to mathematical function
 replacements = {
     'sin': 'np.sin',
     'cos': 'np.cos',

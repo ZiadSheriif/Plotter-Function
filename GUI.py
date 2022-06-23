@@ -1,5 +1,5 @@
 # Utilities imports
-from validator import*
+from validator import *
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt5agg import FigureCanvas
 import numpy as np
@@ -7,8 +7,7 @@ import numpy as np
 from PySide2.QtGui import QFont, QColor, QPalette
 from PySide2.QtCore import Slot
 
-
-# import some of class from PySide2 & QtWidgets
+# import some classes from PySide2 & QtWidgets
 from PySide2.QtWidgets import (
     QLabel,
     QMessageBox,
@@ -42,14 +41,14 @@ class PlotWidget(QWidget):
         # min and max values of x
         self.max = QDoubleSpinBox()
         self.min = QDoubleSpinBox()
-        self.min.setValue(defRange[0])
-        self.max.setValue(defRange[1])
         self.max.setPrefix("Max X: ")
         self.min.setPrefix("Min X: ")
         self.min.setFont(fonts)
         self.max.setFont(fonts)
         self.min.setRange(*ranges)
         self.max.setRange(*ranges)
+        self.max.setValue(defRange[1])
+        self.min.setValue(defRange[0])
 
         # TODO Minimize Layout of label box
 
@@ -93,14 +92,14 @@ class PlotWidget(QWidget):
 
         # Warning: min x can't be greater than or equal to max x
         if val == 1 and min >= max:
-            self.min.setValue(max-1)
+            self.min.setValue(max - 1)
             self.error_dialog.setText("'Min x' should be less than 'Max x'")
             self.error_dialog.show()
             return
 
         # Warning: max x can't be less than or equal to min x
         if val == 2 and max <= min:
-            self.max.setValue(min+1)
+            self.max.setValue(min + 1)
             self.error_dialog.setText(
                 "'Max x' should be greater than 'Min x'")
             self.error_dialog.show()
